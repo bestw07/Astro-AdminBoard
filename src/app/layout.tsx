@@ -5,6 +5,8 @@ export const metadata = {
   title: 'Payload Blank Template',
 }
 
+export const dynamic = 'force-dynamic'
+
 export default function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 
 export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 export default function NotFound() {
   return (
