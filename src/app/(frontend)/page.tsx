@@ -7,11 +7,25 @@ import { fileURLToPath } from 'url'
 import config from '@/payload.config'
 import './styles.css'
 
+export const dynamic = 'force-dynamic'
+
 export default async function HomePage() {
-  const headers = await getHeaders()
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
-  const { user } = await payload.auth({ headers })
+  let user = null
+  let payloadConfig = null
+  let adminRoute = '/admin'
+
+  try {
+    const headers = await getHeaders()
+    payloadConfig = await config
+    const payload = await getPayload({ config: payloadConfig })
+    const authResult = await payload.auth({ headers })
+    user = authResult.user
+    adminRoute = payloadConfig.routes.admin
+  } catch (error) {
+    // Gracefully handle database connection errors during build
+    console.error('Error connecting to database:', error)
+    // Continue rendering the page without user data
+  }
 
   const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
 
@@ -32,7 +46,7 @@ export default async function HomePage() {
         <div className="links">
           <a
             className="admin"
-            href={payloadConfig.routes.admin}
+            href={adminRoute}
             rel="noopener noreferrer"
             target="_blank"
           >
