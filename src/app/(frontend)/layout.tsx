@@ -1,18 +1,20 @@
+// src/app/(payload)/admin/layout.tsx
 import React from 'react'
-import './styles.css'
+import './styles.css'// adjust if needed
+import ClientWrapper from './client-wrapper'
 
 export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
-  title: 'Payload Blank Template',
+  title: 'Payload Admin',
+  description: 'Admin panel for Payload CMS',
 }
 
-export default async function RootLayout(props: { children: React.ReactNode }) {
-  const { children } = props
-
+export default function AdminRootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <main>{children}</main>
+        <ClientWrapper>
+          {children}
+        </ClientWrapper>
       </body>
     </html>
   )
